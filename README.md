@@ -3,8 +3,8 @@
 ePTL - elektroniczna Planowa Tabela Lotów - narzędzie optymalizujące proces planowania
 
 ## Stack
-![HTML](https://img.shields.io/badge/HTML-%234ea94b.svg?style=for-the-badge&logo=html&logoColor=white) 
-![CSS](https://img.shields.io/badge/CSS-%23404d59.svg?style=for-the-badge&logo=css&logoColor=%2361DAFB) 
+![HTML](https://img.shields.io/badge/html-%234ea94b.svg?style=for-the-badge&logo=HTML&logoColor=white) 
+![CSS](https://img.shields.io/badge/css-%23404d59.svg?style=for-the-badge&logo=CSS&logoColor=%2361DAFB) 
 ![JavaScript](https://img.shields.io/badge/JavaScript-%2320232a.svg?style=for-the-badge&logo=JavaScript&logoColor=%2361DAFB) 
 ![bootstrap](https://img.shields.io/badge/bootstrap-6DA55F?style=for-the-badge&logo=bootstrap&logoColor=white)
 
