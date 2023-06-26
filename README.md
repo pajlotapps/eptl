@@ -12,8 +12,8 @@ ePTL - elektroniczna Planowa Tabela Lotów - narzędzie optymalizujące proces p
 [![Live demo](https://img.shields.io/badge/live_demo-hosting_ct8.pl-green)][live]
 
 ### Previewgls
-![preview][preview1-url]
 ![preview][preview2-url]
+![preview][preview1-url]
 
 [preview1-url]: https://raw.githubusercontent.com/pajlotapps/eptl/main/preview/preview_001.png
 [preview2-url]: https://raw.githubusercontent.com/pajlotapps/eptl/main/preview/preview_002.png
