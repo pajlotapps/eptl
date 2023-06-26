@@ -1,0 +1,372 @@
+[
+  {
+    "engineerTasks":[
+      {
+        "D": [{
+          "500": {
+              "task": "Próba przedlotowa śmigłowca",
+              "shortTask" : "Próba",
+              "type": "S/T",
+              "time": "wg potrzeb"
+            },
+          "501": {
+            "task": "Lot po kręgu",
+            "shortTask" : "Krąg",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "502": {
+            "task": "Lot do strefy pilotażu",
+            "shortTask" : "Strefa",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "503": {
+            "task": "Lot po kręgu ze startem i lądowaniem samolotowym",
+            "shortTask" : "Samolotowe",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "504": {
+            "task": "Lot po kręgu z lądowaniem z jednym niepracującym silnikiem",
+            "shortTask" : "1 silnik",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "505": {
+            "task": "Lot po kręgu z imitacją lądowania autorotacyjnego",
+            "shortTask" : "Autorotacja",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "506": {
+            "task": "Lot po kręgu na ręczne sterowanie silnikami (symulację niesprawności układu paliwowo-regulacyjnego silników w wersji FADEC)",
+            "shortTask" : "FADEC",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "507": {
+            "task": "Lot na wykonanie lądowania w terenie przygodnym",
+            "shortTask" : "Lądowisko",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "508": {
+            "task": "Lot trasowy",
+            "shortTask" : "Trasa",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "509": {
+            "task": "Lot do strefy pilotażu",
+            "shortTask" : "Strefa",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "510": {
+            "task": "Lot składzie załogi na wykonanie zadania lotniczego",
+            "shortTask" : "Zadanie",
+            "type": "T",
+            "time": "wg potrzeb"
+          },
+          "550": {
+            "task": "Lot na wykonanie zawisu poza wpływem ziemi w celu udzielenia pomocy poszkodowanemu",
+            "shortTask" : "Ratownictwo",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "551": {
+            "task": "Lot na poszukiwanie wzrokowe i ewakuację poszkodowanego",
+            "shortTask" : "Poszukiwanie",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "552": {
+            "task": "Lot na podjęcie poszkodowanego z wody",
+            "shortTask" : "Podjęcie",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "553": {
+            "task": "Lot na poszukiwanie i ewakuację poszkodowanego z terenu trudnodostępnego",
+            "shortTask" : "Ratownictwo",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "560": {
+            "task": "Lot do strefy pilotażu na zrzut środków oznaczających oraz opanowanie zawisu i manewrowania nad powierzchnią wody",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "561": {
+            "task": "Lot na zrzut środków ratowniczych oraz podjęcie rozbitka z wody lub ze środków ratowniczych",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "562": {
+            "task": "Lot na wykonanie zawisu nad JP oraz na podnoszenie ludzi i sprzętu z pokładu JP i ich dostarczanie z pokładu śmigłowca na pokład JP",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "563": {
+            "task": "Lot na poszukiwanie i podejmowanie rozbitka",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "564": {
+            "task": "Lot na poszukiwanie i podejmowanie rozbitka",
+            "shortTask" : "Morze",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "565": {
+            "task": "Lot na wysadzenie/podjęcie grupy desantowej (ratowniczej) z użyciem lin nośnych/zjazdowych",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "566": {
+            "task": "Lot na wysadzenie/podjęcie grupy desantowej (ratowniczej) z użyciem lin nośnych/zjazdowych",
+            "shortTask" : "Morze",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          }
+        }],
+        "N": [{
+          "511": {
+            "task": "Lot po kręgu",
+            "shortTask" : "Krąg",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "512": {
+            "task": "Lot do strefy pilotażu",
+            "shortTask" : "Strefa",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "513": {
+            "task": "Lot po kręgu ze startem i lądowaniem samolotowym",
+            "shortTask" : "Samolotowe",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "514": {
+            "task": "Lot po kręgu z lądowaniem z jednym niepracującym silnikiem",
+            "shortTask" : "1 silnik",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "515": {
+            "task": "Lot po kręgu z imitacją lądowania autorotacyjnego",
+            "shortTask" : "Autorotacja",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "516": {
+            "task": "Lot na wykonanie lądowania w terenie przygodnym",
+            "shortTask" : "Lądowisko",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "517": {
+            "task": "Lot trasowy",
+            "shortTask" : "Trasa",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "518": {
+            "task": "Lot do strefy pilotażu",
+            "shortTask" : "Strefa",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "519": {
+            "task": "Lot składzie załogi na wykonanie zadania lotniczego",
+            "shortTask" : "Zadanie",
+            "type": "T",
+            "time": "wg potrzeb"
+          },
+          "555": {
+            "task": "Lot na wykonanie zawisu poza wpływem ziemi w celu udzielenia pomocy poszkodowanemu",
+            "shortTask" : "Ratownictwo",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "556": {
+            "task": "Lot na poszukiwanie wzrokowe i ewakuację poszkodowanego",
+            "shortTask" : "Poszukiwanie",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "557": {
+            "task": "Lot na podjęcie poszkodowanego z wody",
+            "shortTask" : "Podjęcie",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "558": {
+            "task": "Lot na poszukiwanie i ewakuację poszkodowanego z terenu trudnodostępnego",
+            "shortTask" : "Desantowanie",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "560": {
+            "task": "Lot do strefy pilotażu na zrzut środków oznaczających oraz opanowanie zawisu i manewrowania nad powierzchnią wody",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "561": {
+            "task": "Lot na zrzut środków ratowniczych oraz podjęcie rozbitka z wody lub ze środków ratowniczych",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "562": {
+            "task": "Lot na wykonanie zawisu nad JP oraz na podnoszenie ludzi i sprzętu z pokładu JP i ich dostarczanie z pokładu śmigłowca na pokład JP",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "563": {
+            "task": "Lot na poszukiwanie i podejmowanie rozbitka",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "564": {
+            "task": "Lot na poszukiwanie i podejmowanie rozbitka",
+            "shortTask" : "Morze",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "570": {
+            "task": "Lot do strefy pilotażu na zrzut środków oznaczających oraz opanowanie zawisu i manewrowanie nad powierzchnią wody",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "571": {
+            "task": "Lot na zrzut środków ratowniczych oraz podjęcie rozbitka z wody lub ze środków ratowniczych",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "572": {
+            "task": "Lot na wykonanie zawisu nad JP oraz na podnoszenie ludzi i sprzętu z pokładu JP i ich dostarczanie z pokładu śmigłowca na pokład JP",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "573": {
+            "task": "Lot na poszukiwanie i podejmowanie rozbitka",
+            "shortTask" : "Morze",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "574": {
+            "task": "Lot na wysadzenie/podjęcie grupy desantowej (ratowniczej) z użyciem lin nośnych/zjazdowych",
+            "shortTask" : "Morze",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "575": {
+            "task": "Lot na wysadzenie/podjęcie grupy desantowej (ratowniczej) z użyciem lin nośnych/zjazdowych",
+            "shortTask" : "Morze",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          }
+        }],
+        "G": [{
+          "521": {
+            "task": "Lot do strefy",
+            "shortTask" : "Strefa",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "522": {
+            "task": "Lot koszący do strefy pilotażu z lądowaniem w terenie przygodnym",
+            "shortTask" : "Strefa z lądowiskiem",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "523": {
+            "task": "Lot do strefy",
+            "shortTask" : "Strefa",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "524": {
+            "task": "Lot składzie załogi na wykonanie zadania lotniczego",
+            "shortTask" : "Zadanie",
+            "type": "T",
+            "time": "wg potrzeb"
+          }
+        }],
+        "Inne": [{
+          "530": {
+            "task": "Lot z ładunkiem podwieszonym",
+            "shortTask" : "Ładunek",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "531": {
+            "task": "Lot z ładunkiem podwieszonym",
+            "shortTask" : "Ładunek",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "535": {
+            "task": "Lot z wykorzystaniem dźwigu pokładowego",
+            "shortTask" : "Dźwig",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "536": {
+            "task": "Lot z wykorzystaniem dźwigu pokładowego",
+            "shortTask" : "Dźwig",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "540": {
+            "task": "Lot na desantowanie z użyciem lin zjazdowych",
+            "shortTask" : "Desantowanie",
+            "type": "S/T",
+            "time": "wg potrzeb"
+          },
+          "541": {
+            "task": "Lot na desantowanie z użyciem lin zjazdowych",
+            "shortTask" : "Desantowanie",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          }
+        }],
+        "I": [{
+          "580": {
+            "task": "Lot do strefy",
+            "shortTask" : "Strefa",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "581": {
+            "task": "Lot na poszukiwanie i na ewakuację poszkodowanego z terenu trudnodostępnego",
+            "shortTask" : "Ewakuacja",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          },
+          "582": {
+            "task": "Lot na poszukiwanie i podejmowanie rozbitka",
+            "shortTask" : "Podjęcie",
+            "type": "E/K",
+            "time": "wg potrzeb"
+          }
+        }]
+      }
+    ]
+  }
+]

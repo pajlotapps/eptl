@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="css/style.css">
+	<title>Planowa tabela lotów</title>
+</head>
+<body onload="startTime()">
+<div id="main-menu" class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+	<span data-toggle="tooltip" data-placement="bottom" title="Interaktywna PTL">&#8495;PTL</span>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span></button>
+	<div class="collapse navbar-collapse" id="navbarText">
+		<ul class="navbar-nav mr-auto">
+		<!-- PTL Dropdown-->
+			<li class="nav-item dropdown">
+					<a id="navbarDropdown" class="nav-link dropdown-toggle" title="PTL" role="button" data-toggle="dropdown"  href="#">
+						Start
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a id="newPTLBtn" class="dropdown-item" title="Utwórz nową PTL, wprowadzone zmiany zostaną porzuczone." href="#">Nowa</a>
+
+						<div class="dropdown-divider"></div>
+							<a id="" class="dropdown-item" data-toggle="modal" data-target="#importPTLModal" title="Wczytaj PTL (.json) na dysku" href="#">Wczytaj</a>
+							<a id="exportPTLBtn" class="dropdown-item disabled" title="Zapisz PTL (.json) na dysku" href="#">Zapisz</a>
+
+							<div class="dropdown-divider"></div>
+
+							<a id="editPTLBtn" class="dropdown-item disabled" href="#">Edytuj</a>
+							<a id="clearPTLBtn" class="dropdown-item disabled" data-toggle="modal" data-target="#clearPTLModal" title="Wszystkie wprowadzone dane zostaną utracone!" href="#">Wyczyść wszystko</a>
+						</div>
+				</li>
+		<!-- Dodaj Dropdown-->
+			<li class="nav-item dropdown">
+				<a id="addMenuBtn" class="nav-link dropdown-toggle disabled" title="Dodaj: lot/personel/statek powietrzny" role="button" data-toggle="dropdown"href="#">Dodaj</a>
+
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a id="addFlightBtn" class="dropdown-item disabled" href="#">Lot</a>
+				
+					<div class="dropdown-divider"></div>
+
+					<a id="newPersonBtn" class="dropdown-item" href="#">Personel</a>
+					<a id="newACBtn" class="dropdown-item" href="#">Statek powietrzny</a>
+				</div>
+			</li>
+			<!-- Usuń Dropdown-->
+			<li class="nav-item dropdown">
+					<a id="removeMenuBtn" class="nav-link dropdown-toggle disabled" title="Usuń: loty/personel/statki powietrzne" role="button" data-toggle="dropdown"href="#">Usuń</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a id="" class="dropdown-item" href="#">Cały personel</a>
+						<a id="" class="dropdown-item" href="#">Wszystkie SP</a>
+						<div class="dropdown-divider"></div>
+						<a id="deleteAllFlightPersonBtn" class="dropdown-item" data-toggle="modal" data-target="#clearAllFlightsModal" title="Wszystkie wprowadzone dane zostaną utracone!" href="#">Wszystkie loty</a>
+					</div>
+				</li>
+			<!-- Eksportuj Dropdown-->
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle disabled" title="Eksportuj PTL" id="generateMenuBtn" role="button" data-toggle="dropdown" href="#">Generuj</a>
+
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a id="generateGraphicsPTL" class="dropdown-item" href="#">Graficzna tabela lotów</a>
+					<a id="" class="dropdown-item disabled" href="#">Planowa tabela lotów</a>
+					<a id="exportToOrderBtn" class="dropdown-item" href="#">Rozkazy wykonania zadania lotniczego</a>
+					<div class="dropdown-divider"></div>
+					<a id="exportToFPLBtn" class="dropdown-item disabled" href="#">Plany lotów (FPL)</a>
+					<a id="exportToKSRBtn" class="dropdown-item disabled" href="#">Karty szacowania ryzyka (KSR)</a>
+				</div>
+			</li>
+		</ul>
+<!-- DTG-->
+				<!-- <span class="navbar-text" id="DTG"></span> -->
+		</div>
+</div>
+			
+<!-- Nowa PTL modal-->
+<div id="newPTLModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered text-center" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Nowa PTL</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				Upewnij się, że zapisałeś dotychczasowe zmiany.<br>
+				Klikając <kbd>Utwórz</kbd> zostanie utworzona nowa Planowa Tabela Lotów.<br>
+				Niezapisane zmiany zostaną utracone!
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+				<button type="button" id="createNewPTL" class="btn btn-primary">Utwórz</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Wczytaj PTL modal-->
+<div id="importPTLModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Wczytaj PTL</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Upewnij się, że zapisałeś dotychczasowe zmiany.<br>
+					<input type="file" class="selectedFile" name="ptl" accept=".json"><br>
+					Klikając <kbd>Wczytaj</kbd> niezapisane zmiany zostaną utracone!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<button type="button" id="importPersonnelBtn" class="btn btn-primary">Wczytaj</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Edytuj lot modal-->
+<div id="flightModal" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+					<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Szczegóły lotu</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+							</button>
+					</div>
+					<div class="modal-body">
+							<form id="ptl-form">
+							<div class="form-row mt-2">
+								<div class="col-md-2 v-middle">Ilość startów</div>
+								<div class="col-md-3">
+									<select id="ff-quantity" class="custom-select">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+								</div>
+								<div class="col-md-1 align-self-center"><span class="pull-right">Typ SP</span></div>
+								<div class="col-md-2"><select id="ff-acType" class="custom-select" onchange="getRegs(this)"></select></div>
+								<!-- <div id="ff-acRegLabel" class="col-md-1 align-self-center text-right hidden_element"> #</div> -->
+								<div class="col-md-2 align-self-center"><select id="ff-acReg" class="custom-select hidden_element" onchange="getAcColor(this)"></select></div>
+								<!-- <div id="ff-acColorLabel" class="col-md-2 v-middle hidden_element">Oznaczenie</div> -->
+								<div id="ff-acColor" class="col-md-2 v-middle hidden_element"><span id="acColor" class="badge helo-color-blue"></span></div>
+								
+							</div>
+							<div class="form-row mt-2">
+									<div class="col-md-2 v-middle">Start (UTC)</div>
+									<div class="col-md-3">
+											<input type="text" id="ff-flightStart" class="form-control" onblur="validateTime(this)">
+									</div>
+									<div class="col-md-1 align-self-center"><span class="pull-right">Czas</span></div>
+									<div class="col-md-2">
+										<select id="ff-flightLength" class="custom-select">
+												<option value="5">5 min</option>
+												<option value="10">10 min</option>
+												<option value="15">15 min </option>
+												<option value="20">20 min </option>
+												<option value="25">25 min </option>
+												<option value="30">30 min </option>		
+												<option value="35">35 min </option>		
+												<option value="40">40 min </option>		
+												<option value="45">45 min </option>		
+												<option value="50">50 min </option>		
+												<option value="55">55 min </option>		
+												<option value="60">1 h 0 min</option>		
+												<option value="70">1 h 10 min </option>		
+												<option value="80">1 h 20 min </option>		
+												<option value="90">1 h 30 min </option>		
+												<option value="120">2 h 00 min </option>		
+												<option value="180">2 h 30 min </option>		
+										</select>
+									</div>
+									<div class="col-md-1 v-middle">Symbol</div>
+									<div class="col-md-3">
+										<div id="ff-taskIconSelect" class="custom-select" ></div>
+									</div>
+								</div>
+							<div id="leftSeatRow" class="form-row mt-2 hidden_element">
+								<div class="col-md-2 v-middle">Fotel lewy</div>
+								<div class="col-md-3">
+									<select id="ff-leftSeatPilot" class="custom-select"></select>
+								</div>       
+								<div class="col-md-1 v-middle">Funkcja</div>
+
+								<div class="col-md-3">
+									<select id="ff-leftSeatRole" class="custom-select"></select>
+								</div>   
+								<div class="col-md-1 v-middle">Zadanie</div>
+								<div class="col-md-2"><input id="ff-leftSeatTask"  type="text" class="form-control"></div>
+							</div>
+							<div id="rightSeatRow" class="form-row mt-2 hidden_element">
+								<div class="col-md-2 v-middle">Fotel prawy</div>
+									<div class="col-md-3">
+										<select id="ff-rightSeatPilot" class="custom-select"></select>
+									</div>       
+									<div class="col-md-1 v-middle">Funkcja</div>
+										<div class="col-md-3">
+											<select id="ff-rightSeatRole" class="custom-select"></select>
+										</div>   
+											<div class="col-md-1 v-middle">Zadanie</div>
+											<div class="col-md-2"><input id="ff-rightSeatTask"  type="text" class="form-control"></div>
+					 
+							</div>
+							<div id="enginnerSeatRow" class="form-row mt-2 hidden_element">
+											<div class="col-md-2 v-middle">Technik</div>
+											<div class="col-md-3">
+												<select id="ff-engineerSeat" class="custom-select"></select>
+											</div>   
+											<div class="col-md-1 v-middle">Zadanie</div>
+											<div class="col-md-3">
+															<select id="ff-engineerSeatTask" class="custom-select">
+																			<option value="1">Próba</option>
+																			<option value="2">Krąg</option>
+																			<option value="3">Strefa</option>
+																			<option value="4">Trasa</option>
+																			<option value="5">Lądowisko</option>
+															</select>
+											</div>
+											<div class="col-md-2 v-middle">
+													<!-- <div class="btn-group-toggle" data-toggle="buttons"> -->
+															<span id="engineerTrainingLabel">Szkolony</span>
+
+															<input type="checkbox" id="engineerTrainingSwitch" name="engineerTraining"/><label for="engineerTrainingSwitch"> Szkolony</label>
+
+													<!-- </div> -->
+											</div>
+							</div>
+
+							<div id="engineerInstructorRow" class="form-row mt-2 hidden_element">
+											<div class="col-md-2 v-middle">Technik (szkolący)</div>
+											<div class="col-md-3">
+															<select id="ff-engineerInstructor" class="custom-select"></select>
+											</div>   
+											<div class="col-md-1 v-middle"></div>
+											<div class="col-md-3">
+														
+											</div>
+											<div class="col-md-2 v-middle">
+												
+											</div>
+											
+							</div>
+							<div id="additionalCrewRow" class="form-row mt-2 hidden_element">
+									<div class="col-md-3 v-middle">Dodatkowy personel</div>
+									<div class="col-md-2">
+										<select id="ff-additionalCrewCapacity" class="custom-select"></select>
+									</div>
+							</div>
+							<div id="additionalRows"></div>
+
+							<!-- <div id="crewRow_1" class="form-row mt-2 hidden_element">
+								<div class="col-md-2 v-middle">Funkcja</div>
+									<div class="col-md-3"><select id="ff-additionCrewRoles" class="custom-select">
+													<option selected>wybierz</option>
+													<option value="navigator">Nawigator pokładowy</option>
+													<option value="gunner">Strzelec pokładowy</option>
+													<option value="medic">Ratownik medyczny</option>
+													<option value="passenger">Pasażer</option>
+													<option value="other">Inny</option>
+									</select></div>       
+							<div class="col-md-3">
+								<select id="ff-additionCrew" class="custom-select"></select>
+							</div>   
+							<div class="col-md-1 v-middle">Zadanie</div>
+							<div class="col-md-3"><input id="ff-rightSeatTask" type="text" class="form-control"></div>
+							</div> -->
+								
+							
+							<div id="ff-alert-container" class="text-center mt-2 alert-container"></div>
+
+					</form>	
+
+					</div>
+					<div class="modal-footer">
+							<button type="button" id="deleteFlightBtn" class="btn btn-danger" data-dismiss="modal">Usuń lot</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+							<button type="button" id="saveFlightBtn" class="btn btn-primary">Zapisz zmiany</button>
+					</div>
+			</div>
+	</div>
+</div>
+<!-- Person modal-->
+<div id="personModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="personModalLabel">Dodaj członka załogi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="add-person-form">
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Nazwisko</div>
+								<div class="col-md-8">
+									<input type="text" id="pf-surname" class="form-control" > <!-- onblur="validateSurname(this)"> -->
+								</div>
+						</div>
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Funkcja</div>
+								<div class="col-md-8">
+										<select id="pf-role" class="custom-select">
+												<option selected>wybierz</option>
+												<option value="pilot">Pilot</option>
+												<option value="engineer">Technik pokładowy</option>
+												<option value="navigator">Nawigator pokładowy</option>
+												<option value="gunner">Strzelec pokładowy</option>
+												<option value="medic">Ratownik medyczny</option>
+												<option value="passenger">Pasażer</option>
+												<option value="other">Inny</option>
+										</select>
+									</div>	
+						</div>
+						<div id="callsignRow" class="form-row hidden_element mt-2">
+								<div class="col-md-4 v-middle">Kryptonim</div>
+								<div class="col-md-8"><input type="text" id="pf-callsign" class="form-control"></div>
+						</div>
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Typ SP</div>
+								<div class="col-md-8"><select id="pf-acType" class="custom-select"></select></div>
+						</div>
+						<div id="wxminimaRow" class="form-row hidden_element mt-2">
+								<div class="col-md-4 v-middle">Warunki minimalne</div>
+								<div class="col-md-8"><input type="text" id="pf-wm" class="form-control"></div>
+						</div>		
+						<div id="pf-alert-container" class="text-center mt-2 alert-container"></div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<input type="submit" id="add-person-btn" class="btn btn-primary" value="Dodaj osobę">
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Dodaj statek powietrzny modal-->
+<div id="addAircraftModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Dodaj statek powietrzny</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="add-aircraft-form">
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Typ SP</div>
+								<div class="col-md-8">
+										<select id="af-acType" class="custom-select" onchange="loadRegs(this)"></select>
+								</div>
+						</div>	
+						<div id="acRegRow" class="form-row hidden_element mt-2">
+								<div class="col-md-4 v-middle">Numer burtowy</div>
+								<div class="col-md-8">
+										<select id="af-acReg" class="custom-select"></select>
+								</div>
+						</div>
+						<div id="colors" class="form-row mt-2 colors">
+								<div class="col-md-4 v-middle">Kolor</div>
+								<div class="col-md-6">
+										<select id="af-acColors" class="custom-select selectColor-control">
+												<option value="blue">BLUE</option>
+												<option value="indigo">INDIGO</option>
+												<option value="purple">PURPLE</option>
+												<option value="red">RED</option>
+												<option value="orange">ORANGE</option>
+												<option value="yellow">YELLOW</option>
+												<option value="green">GREEN</option>
+												<option value="teal">TEAL</option>
+												<option value="cyan">CYAN</option>
+										</select>
+								</div>
+								<div class="col-md-2 v-middle"><span id="acSelectedColor" class="badge helo-color-blue"> </span></div>
+						</div>
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Uwagi</div>
+								<div class="col-md-8">
+									<input type="text" id="af-acRmk" class="form-control">
+								</div>
+						</div>
+						<div id="af-alert-container" class="text-center mt-2 alert-container"></div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<input type="submit" id="addAircraftBtn" class="btn btn-primary" value="Dodaj SP">
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Usuń członka załogi modal-->
+<div id="deletePersonModal" class="modal fade"  tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Usuń członka załogi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p id="crewMember"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<button type="button" id="deletePersonBtn" class="btn btn-primary btn-danger">Usuń</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Usuń statek powietrzny modal-->
+<div id="deleteAircraftModal" class="modal fade"  tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="aircraftModalLabel">Usuń statek powietrzny</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p id="acToDelete"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<button type="button" id="deleteAircraftBtn" class="btn btn-primary btn-danger">Usuń</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Wyczyść PTL modal-->
+<div id="clearPTLModal" class="modal fade"  tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="clearPTLModalLabel">Wyczyść PTL</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Upewnij się, że zapisałeś dotychczasowe zmiany.<br>
+				 	Klikając <kbd>Wyczyść</kbd> niezapisane zmiany zostaną utracone!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<button type="button" id="clearAllBtn" class="btn btn-primary btn-danger">Wyczyść</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Wyczyść PTL modal-->
+<div id="clearAllFlightsModal" class="modal fade"  tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="clearPTLModalLabel">Usuń wszystkie loty</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Upewnij się, że zapisałeś dotychczasowe zmiany.<br>
+				 	Klikając <kbd>Usuń</kbd> wszystkie dodane loty zostaną bezpowrotnie utracone!
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<button type="button" id="deleteAllFlightsBtn" class="btn btn-primary btn-danger">Usuń</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+<!-- Edit PTL Info modal-->
+<div id="PTLInfoModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Planowa Tabela Lotów</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="ptl-form">
+						Uzupełnij pola formularza zgodnie z podanym formatem. <br> 
+						<i>Zwróć uwagę na format daty, czasu oraz współrzędnych geograficznych.</i>
+					<div class="form-row mt-2">
+							<div class="col-md-4 v-middle">Jednostka</div>
+							<div class="col-md-8">
+									<input id="flightShiftUnit" type="text" class="form-control">
+							</div>
+					</div>
+					<div class="form-row mt-2">
+							<div class="col-md-4 v-middle">Wariant</div>
+							<div class="col-md-8">
+									<input id="flightShiftVariant" type="text" class="form-control">
+							</div>
+					</div>
+					<div class="form-row mt-2">
+						<div class="col-md-4 v-middle">Loty dnia</div>
+						<div class="col-md-8">
+								<input id="flightShiftDate" type="text" class="form-control fs-Date-input" onblur="validateDate(this)">
+						</div>
+					</div>
+					<div id="localTimeRow" class="form-row hidden_element mt-2">
+							<div class="col-md-4 v-middle">Czas lokalny</div>
+							<div id="timeOffset" class="col-md-8">...</div>
+					</div>
+					<div class="form-row mt-2">
+							<div class="col-md-4 v-middle">Początek lotów (LMT)</div>
+							<div class="col-md-8">
+									<input id="flightShiftStart" type="text" class="form-control" onblur="validateTime(this)" >
+							</div>
+					</div>
+					<div class="form-row mt-2">
+							<div class="col-md-4 v-middle">Długość zmiany</div>
+							<div class="col-md-5">
+									<select id="flightShiftLength" class="custom-select selectTime-control">
+											<option value="1">1 godzina</option>
+											<option value="2">2 godziny</option>
+											<option value="3">3 godziny</option>
+											<option value="4">4 godziny</option>
+											<option value="5">5 godzin</option>
+											<option value="6">6 godzin</option>
+											<option value="7">7 godzin</option>
+											<option value="8">8 godzin</option>
+											<option value="9">9 godzin</option>
+									</select>
+								</div>
+								<div id="flightShiftEnd" class="col-md-3 v-middle justify-content-center invisible">--:--</div>
+					</div>
+					<div class="form-row mt-2">
+							<div class="col-md-4 v-middle">Lokalizacja</div>
+							<div class="col-md-5"><select id="flightShiftLocationList" class="custom-select"></select></div>
+							<div id="flightShiftSelLocCoords" class="col-md-3 v-middle justify-content-center invisible">coords</div>
+					</div>
+					<div id="coordsRow" class="form-row mt-2 hidden_element">
+						<div class="col-md-4 v-middle">Współrzędne</div>
+						<div class="col-md-4"><input id="flightShiftInputCoordsLat" type="text" class="form-control" onblur="validateLat(this)"></div>
+						<div class="col-md-4"><input id="flightShiftInputCoordsLong" type="text" class="form-control" onblur="validateLong(this)"></div>
+					</div>
+					<div class="form-row mt-2">
+							<div class="col-md-4 v-middle">Zachód słońca (LMT)</div>
+							<div class="col-md-5"><input id="flightShiftSS" type="time" class="form-control"></div>
+							<div class="col-md-3"><button type="button" id="calculateSSBtn" class="btn btn-block btn-success">Sprawdź</button></div>
+					</div>
+					<div class="form-row mt-2">
+							<div class="col-md-12">
+									<textarea id="flightShiftRemarks" type="text" class="form-control input-textField mt-2"></textarea>
+							</div>
+					</div>
+					<div id="ef-alert-container" class="text-center mt-2 alert-container"></div>
+					<div class="form-row">
+							
+					</div>
+				</form>	
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<input type="submit" id="confirm-PTL-modal-btn" class="btn btn-primary" value="Zapisz">
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Nowa PTL modal-->
+<div id="graphicsPTLModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Graficzna PTL</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Klikając <kbd>Zapisz</kbd> graficzna forma <br>Planowej Tabeli Lotów zostanie wygenerowana.
+					<div id="generatedCanvas"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<button type="button" id="save-graphics-PTL-btn" class="btn btn-primary">Zapisz</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Eksportuj rozkazy modal-->
+<div id="exportToOrderModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered text-center" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Generuj Rozkazy do wykonania zadania lotniczego</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="ptl-form">
+				<div class="form-row mt-2">
+					<div class="col-md-4 v-middle">Początkowy nr rozkazu</div>
+					<div class="col-md-8"><input id="exf-initialOrderNumber" type="text" class="form-control"></div>
+				</div>
+				<div class="form-row mt-2">
+						<div class="col-md-4 v-middle">Dysponent SP (4a)</div>
+						<div class="col-md-8">
+								<input id="exf-dysponent" type="text" class="form-control">
+						</div>
+				</div>
+				<div class="form-row mt-2">
+					<div class="col-md-4 v-middle">Zabezpieczenie (4c)</div>
+					<div class="col-md-8"><input id="exf-logistic"  type="text" class="form-control"></div>
+				</div>
+
+				<div class="form-row mt-2">
+					<div class="col-md-4 v-middle">Nr rozkazu (5)</div>
+					<div class="col-md-8"><input id="exf-orderNumber" type="text" class="form-control"></div>
+				</div>
+
+				<div class="form-row mt-2">
+					<div class="col-md-4 v-middle">Miejscowość</div>
+					<div class="col-md-8"><input id="exf-location" type="text" class="form-control"></div>
+				</div>
+				<div class="form-row mt-2">
+					<div class="col-md-4 v-middle">Data</div>
+					<div class="col-md-8"><input id="orderSignDate" type="text" class="form-control"></div>
+				</div>
+
+				<div class="form-row mt-2">
+					<div class="col-md-4 v-middle">Organizator</div>
+					<div class="col-md-3">
+							<select id="selectTime" class="custom-select selectTime-control">
+									<option value="1">płk</option>
+									<option value="2">ppłk</option>
+									<option value="3">mjr</option>
+									<option value="4">kpt.</option>
+									<option value="5">por.</option>
+									<option value="6">ppor.</option>
+							</select>
+					</div>
+					<div class="col-md-5"><input id="exf-organizator" type="text" class="form-control"></div>
+				</div>
+
+				<div class="form-row">
+						<div id="of-alert-container" class="text-center mt-2 alert-container"></div>
+				</div>
+			</form>	
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+				<button type="button" id="" class="btn btn-primary">Generuj rozkazy</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+<div class="centered mt-2">
+		<div class="container h-100">
+				<div class="row h-100 justify-content-center align-items-center">
+						<div id="welcomeInfo" class="welcome-info shadow-sm jumbotron mt-2 hidden_element">
+								<h1 class="display-2">&#8495;PTL</h1> 
+								<h2>Planowa Tabela Lotów</h2> 
+				
+								<p>Cyfrowa platforma optymalizująca i automatyzująca proces planowania lotów.</p> 
+								<div class="d-flex p-3 bg-cyan text-white" style="border-radius: 0.5rem;">
+										<div class="p-2 bg-info">1. Start &#187; Nowa</div>
+										<div class="p-2 bg-secondary">2. Dodaj personel</div>
+										<div class="p-2 bg-warning">3. Dodaj statki powietrzne</div>
+										<div class="p-2 bg-primary">4. Zaplanuj loty</div>
+										<div class="p-2 bg-teal">5. Generuj dokumenty</div>
+										<div class="p-2 bg-success">6. Czas na kawę &#9787;</div>
+									</div>
+							</div>
+				</div>
+			</div>
+<!-- canvas -->
+
+
+<div id="capture">
+<div id="ptlHeader" class="ptl-header text-center">
+		<div class="container-fluid">
+				
+			<div class="row text-center bg-light align-items-center">
+					<div class="col-md-3">
+						<div class="toggle-container " data-html2canvas-ignore="true">
+							<span id="presentationModeLabel" data-toggle="tooltip" data-placement="bottom" title="Przełącz pomiędzy trybami">Tryb edycji</span>
+							<input type="checkbox" id="modeSwitch" name="presentationMode"/><label for="modeSwitch"> Toggle</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+					<div class="row text-center">
+							<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Wschód słońca"><i id="localSunset" class="i-sunset"> --:-- LMT</i> </div>
+							<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Wschód księżyca"><i id="localMoonrise" class="i-moonrise"> --:-- LMT</i></div>
+							<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Faza księżyca i iluminacja "><i id="moonIllum" class="i-moonphase"> --%</i></div>
+							<div class="col-md-3" data-toggle="tooltip" data-placement="bottom" title="Zachód księżyca"><i id="localMoonset" class="i-moonset"> --:-- LMT</i></div>
+
+						</div>
+					</div>
+					<div class="col-md-3 ">
+						<span id="DTG" class="float-right"></span>
+					</div>
+				</div>
+				
+				<div class="row mt-3">
+						<div class="col-md-3 text-left">
+								<div id ="info-table" class="info-table-wrapper hidden_element">
+
+								<h5>W lotach bierze udział:</h5>
+								<ul class="list-group">
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+												<strong>Ogółem</strong>
+												<a data-toggle="collapse" href="#collapseList" role="button" aria-expanded="false" aria-controls="collapseList">
+														(rozwiń)</a> 
+												<span id="totalPersonCounter" class="badge badge-success badge-pill">0</span>
+										</li>
+									</ul>
+								
+									<div class="collapse" id="collapseList">
+											<ul class="list-group-flush">
+													<li class="list-group-item d-flex justify-content-between align-items-center">
+														Pilotów
+														<span id="pilotsCounter" class="badge badge-primary badge-pill">0</span>
+													</li>
+													<li class="list-group-item d-flex justify-content-between align-items-center">
+														Techników pokładowych
+														<span id="engineersCounter" class="badge badge-primary badge-pill">0</span>
+													</li>
+													<li class="list-group-item d-flex justify-content-between align-items-center">
+														Pozostały personel
+														<span id="othersCounter" class="badge badge-primary badge-pill">0</span>
+													</li>
+												</ul>
+									</div>
+								</div>
+						</div>
+						<div class="col-md-6">
+								<div class="row">
+										<div class="col-md-6"><h3>TABELA LOTÓW</h3></div>
+										<div id="ptlVariant" class="col-md-6 border-bottom"></div>
+					
+									</div>
+									<div class="row">
+											<div class="col-md-6"></div>
+											<div class="col-md-6"><h6><span>(nr wariantu lub nazwa poligonu)</span></h6></div>
+									</div>
+									<div class="row">
+											<div id="ptlUnit" class="col-md-6 border-bottom"></div>
+											<div id="ptlDate" class="col-md-6 border-bottom"></div>
+					
+										</div>
+										<div class="row">
+												<div class="col-md-6"><h6><span>(pododdział, jednostka)</span></h6></div>
+												<div class="col-md-6"><h6><span>(data)</span></h6></div>
+										</div>
+						</div>
+						<div class="col-md-3">
+
+								<div id ="ac-table" class="ac-table-wrapper hidden_element">
+								<table class="table table-sm border">
+										<thead>
+											<tr>
+												<th scope="col">#</th>
+												<th scope="col">Typ</th>
+												<th scope="col">Reg</th>
+												<th class="border-r" scope="col">Uwagi</th>
+												<th id="deleteAcH" scope="col">Usuń</td>
+											</tr>
+										</thead>
+										<tbody id="aircrafts-list" class="css-serial">	
+																				
+										</tbody>
+									</table>
+									</div>
+						</div>
+					</div>
+	</div>
+</div>
+
+<div class="table-wrapper mt-2 text-center">
+	<table id="ptlContent" class="table table-striped tg border" >
+		<colgroup>
+			<col style="width: 45px"><!-- LP -->
+			<col style="width: 70px"><!-- Typ SP -->
+			<col style="width: 130px"><!-- Członek załogi -->
+			<col style="width: 90px"><!-- Kryptonim -->
+
+			<col class="border-l" style="width: 40px">
+			<col style="width: 40px">
+			<col style="width: 40px">
+			<col class="current-time" style="width: 40px">
+			<col style="width: 40px">
+			<col style="width: 40px">
+			
+			<col style="width: 40px">
+			<col style="width: 40px">
+			<col style="width: 40px">
+			<col style="width: 40px">
+			<col style="width: 40px">
+			<col id="lastLRPcol" style="width: 40px">
+			<!--wstawic 6 razy dlugosc zmiany-->
+			<col class ="1_hour" style="width: 40px">
+			<col class ="1_hour" style="width: 40px">
+			<col class ="1_hour" style="width: 40px">
+			<col class ="1_hour" style="width: 40px">
+			<col class ="1_hour" style="width: 40px">
+			<col class ="1_hour" style="width: 40px">
+
+			<col class ="2_hour" style="width: 40px">
+			<col class ="2_hour" style="width: 40px">
+			<col class ="2_hour" style="width: 40px">
+			<col class ="2_hour" style="width: 40px">
+			<col class ="2_hour" style="width: 40px">
+			<col class ="2_hour" style="width: 40px">
+
+			<col class ="3_hour" style="width: 40px">
+			<col class ="3_hour" style="width: 40px">
+			<col class ="3_hour" style="width: 40px">
+			<col class ="3_hour" style="width: 40px">
+			<col class ="3_hour" style="width: 40px">
+			<col class ="3_hour" style="width: 40px">
+
+			<col class ="4_hour" style="width: 40px">
+			<col class ="4_hour" style="width: 40px">
+			<col class ="4_hour" style="width: 40px">
+			<col class ="4_hour" style="width: 40px">
+			<col class ="4_hour" style="width: 40px">
+			<col class ="4_hour" style="width: 40px">
+
+			<col class ="5_hour" style="width: 40px">
+			<col class ="5_hour" style="width: 40px">
+			<col class ="5_hour" style="width: 40px">
+			<col class ="5_hour" style="width: 40px">
+			<col class ="5_hour" style="width: 40px">
+			<col class ="5_hour" style="width: 40px">
+
+			<col class ="6_hour" style="width: 40px">
+			<col class ="6_hour" style="width: 40px">
+			<col class ="6_hour" style="width: 40px">
+			<col class ="6_hour" style="width: 40px">
+			<col class ="6_hour" style="width: 40px">
+			<col class ="6_hour" style="width: 40px">
+
+			<col class ="7_hour" style="width: 40px">
+			<col class ="7_hour" style="width: 40px">
+			<col class ="7_hour" style="width: 40px">
+			<col class ="7_hour" style="width: 40px">
+			<col class ="7_hour" style="width: 40px">
+			<col class ="7_hour" style="width: 40px">
+
+			<col class ="8_hour" style="width: 40px">
+			<col class ="8_hour" style="width: 40px">
+			<col class ="8_hour" style="width: 40px">
+			<col class ="8_hour" style="width: 40px">
+			<col class ="8_hour" style="width: 40px">
+			<col class ="8_hour" style="width: 40px">
+
+			<col class ="9_hour" style="width: 40px">
+			<col class ="9_hour" style="width: 40px">
+			<col class ="9_hour" style="width: 40px">
+			<col class ="9_hour" style="width: 40px">
+			<col class ="9_hour" style="width: 40px">
+			<col class ="9_hour" style="width: 40px">
+
+			<col style="width: 60px;border-left: 1px solid #cdd0d4;">
+			<col style="width: 60px;border-left: 1px solid #cdd0d4;">
+			<col style="width: 80px;border-left: 2px solid #cdd0d4;"><!-- MWM -->
+			<col style="width: 70px;border-left: 1px solid #cdd0d4;"><!-- edytuj -->
+
+			<col style="width: 60px;border-left: 1px solid #cdd0d4;"><!-- usuń -->
+		</colgroup>
+	<thead>
+		<tr>
+			<th class="border-l row-number" rowspan="3">L.p.</th>
+			<th class="border-l" rowspan="3">Typ SP</th>
+			<th class="border-l" rowspan="3">Członek załogi</th>
+			<th class="border-l" rowspan="3">Kryptonim</th>
+			<th colspan="2"><span id="LMToffsetLbl" class="badge badge-pill badge-primary hidden_element">UTC+</span></th>
+			<th id="ptlTimeHeader" colspan="64">CZAS LOTÓW (DZIAŁANIA NA POLIGONIE)</th>
+			<th rowspan="2" colspan="2">Razem <br>według <br>planu</th>
+			<th class="border-l" rowspan="4">MWM <br>dowódcy<br> statku</th>
+			<th id="editH" rowspan="4" >Edytuj</th>
+			<th id="deleteH" rowspan="4" >Usuń</th>
+		</tr>
+
+		<tr id="time-badges">
+			<td colspan="2"><span class="badge badge-pill badge-dark">-2h</span></td>
+			<td colspan="4"></td>
+			<td colspan="2"><span class="badge badge-pill badge-dark">-1h</span></td>
+			<td colspan="4"></td>
+
+			<td class="1_hour" colspan="2"><span class="badge badge-pill badge-dark">Początek lotów</span></td>
+			<td class="1_hour" colspan="4"></td>
+			<td class="2_hour" colspan="2"><span class="badge badge-pill badge-dark">+1h</span></td>
+			<td class="2_hour" colspan="4"></td>
+			<td class="3_hour" colspan="2"><span class="badge badge-pill badge-dark">+2h</span></td>
+			<td class="3_hour" colspan="4"></td>
+			<td class="4_hour" colspan="2"><span class="badge badge-pill badge-dark">+3h</span></td>
+			<td class="4_hour" colspan="4"></td>
+			<td class="5_hour" colspan="2"><span class="badge badge-pill badge-dark">+4h</span></td>
+			<td class="5_hour" colspan="4"></td>
+			<td class="6_hour" colspan="2"><span class="badge badge-pill badge-dark">+5h</span></td>
+			<td class="6_hour" colspan="4"></td>
+			<td class="7_hour" colspan="2"><span class="badge badge-pill badge-dark">+6h</span></td>
+			<td class="7_hour" colspan="4"></td>
+			<td class="8_hour" colspan="2"><span class="badge badge-pill badge-dark">+7h</span></td>
+			<td class="8_hour" colspan="4"></td>
+			<td class="9_hour" colspan="2"><span class="badge badge-pill badge-dark">+8h</span></td>
+			<td class="9_hour" colspan="4"></td>
+		</tr>
+
+		<tr>
+			<td class="border-lr" colspan="6">Próby</td>
+			<td class="border-lr" colspan="6">Lotnicze rozpoznanie pogody</td>
+
+			<td class="1_hour border-lr" colspan="6">1 godzina</td>
+			<td name="2_hour" class="2_hour border-lr" colspan="6">2 godzina</td>
+			<td name="3_hour" class="3_hour border-lr" colspan="6">3 godzina</td>
+			<td name="4_hour" class="4_hour border-lr" colspan="6">4 godzina</td>
+			<td name="5_hour" class="5_hour border-lr" colspan="6">5 godzina</td>
+			<td name="6_hour" class="6_hour border-lr" colspan="6">6 godzina</td>
+			<td name="7_hour" class="7_hour border-lr" colspan="6">7 godzina</td>
+			<td name="8_hour" class="8_hour border-lr" colspan="6">8 godzina</td>
+			<td name="9_hour" class="9_hour border-lr" colspan="6">9 godzina</td>
+
+			<td id="totalFlightstd" class="border-lr" rowspan="2">Lotów</td>
+			<td class="border-lr" rowspan="2">Czas</td>
+		</tr>
+		
+		<tr>
+			<!-- <td colspan="2"><select class="custom-select">
+					<option>Wszystkie</option>
+					<option>W-3</option>
+					<option>Mi-2</option>
+				</select>
+			</td> -->
+
+			<td colspan="4"><input id="search" type="text" class="search form-control"  placeholder="Przeszukaj tabele"></td>
+
+			<td class="border-l">10</td>
+			<td class="border-l">20</td>
+			<td class="border-l">30</td>
+			<td class="border-l">40</td>
+			<td class="border-l">50</td>
+			<td class="border-lr">60</td>
+
+			<td class="border-l">10</td>
+			<td class="border-l">20</td>
+			<td class="border-l">30</td>
+			<td class="border-l">40</td>
+			<td class="border-l">50</td>
+			<td class="border-lr">60</td>
+
+			<td class="1_hour border-l">10</td>
+			<td class="1_hour border-l">20</td>
+			<td class="1_hour border-l">30</td>
+			<td class="1_hour border-l">40</td>
+			<td class="1_hour border-l">50</td>
+			<td class="1_hour border-lr">60</td>
+
+			<td name="2_hour" class="2_hour border-l">10</td>
+			<td name="2_hour" class="2_hour border-l">20</td>
+			<td name="2_hour" class="2_hour border-l">30</td>
+			<td name="2_hour" class="2_hour border-l">40</td>
+			<td name="2_hour" class="2_hour border-l">50</td>
+			<td name="2_hour" class="2_hour border-lr">60</td>
+
+			<td name="3_hour" class="3_hour border-l">10</td>
+			<td name="3_hour" class="3_hour border-l">20</td>
+			<td name="3_hour" class="3_hour border-l">30</td>
+			<td name="3_hour" class="3_hour border-l">40</td>
+			<td name="3_hour" class="3_hour border-l">50</td>
+			<td name="3_hour" class="3_hour border-lr">60</td>
+
+			<td name="4_hour" class="4_hour border-l">10</td>
+			<td name="4_hour" class="4_hour border-l">20</td>
+			<td name="4_hour" class="4_hour border-l">30</td>
+			<td name="4_hour" class="4_hour border-l">40</td>
+			<td name="4_hour" class="4_hour border-l">50</td>
+			<td name="4_hour" class="4_hour border-lr">60</td>
+
+			<td name="5_hour" class="5_hour border-l">10</td>
+			<td name="5_hour" class="5_hour border-l">20</td>
+			<td name="5_hour" class="5_hour border-l">30</td>
+			<td name="5_hour" class="5_hour border-l">40</td>
+			<td name="5_hour" class="5_hour border-l">50</td>
+			<td name="5_hour" class="5_hour border-lr">60</td>
+			
+			<td name="6_hour" class="6_hour border-l">10</td>
+			<td name="6_hour" class="6_hour border-l">20</td>
+			<td name="6_hour" class="6_hour border-l">30</td>
+			<td name="6_hour" class="6_hour border-l">40</td>
+			<td name="6_hour" class="6_hour border-l">50</td>
+			<td name="6_hour" class="6_hour border-lr">60</td>
+
+			<td name="7_hour" class="7_hour border-l">10</td>
+			<td name="7_hour" class="7_hour border-l">20</td>
+			<td name="7_hour" class="7_hour border-l">30</td>
+			<td name="7_hour" class="7_hour border-l">40</td>
+			<td name="7_hour" class="7_hour border-l">50</td>
+			<td name="7_hour" class="7_hour border-lr">60</td>
+
+			<td name="8_hour" class="8_hour border-l">10</td>
+			<td name="8_hour" class="8_hour border-l">20</td>
+			<td name="8_hour" class="8_hour border-l">30</td>
+			<td name="8_hour" class="8_hour border-l">40</td>
+			<td name="8_hour" class="8_hour border-l">50</td>
+			<td name="8_hour" class="8_hour border-lr">60</td>
+
+			<td name="9_hour" class="9_hour border-l">10</td>
+			<td name="9_hour" class="9_hour border-l">20</td>
+			<td name="9_hour" class="9_hour border-l">30</td>
+			<td name="9_hour" class="9_hour border-l">40</td>
+			<td name="9_hour" class="9_hour border-l">50</td>
+			<td name="9_hour" class="9_hour border-lr">60</td>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr> 
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-lr"></td>
+
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td class="border-lr"></td>
+
+				<td class="1_hour border-l"></td>
+				<td class="1_hour border-l"></td>
+				<td class="1_hour border-l"></td>
+				<td class="1_hour border-l"></td>
+				<td class="1_hour border-l"></td>
+				<td class="1_hour border-lr"></td>
+
+				<td name="2_hour" class="2_hour border-l"></td>
+				<td name="2_hour" class="2_hour border-l"></td>
+				<td name="2_hour" class="2_hour border-l"></td>
+				<td name="2_hour" class="2_hour border-l"></td>
+				<td name="2_hour" class="2_hour border-l"></td>
+				<td name="2_hour" class="2_hour border-lr"></td>
+
+				<td name="3_hour" class="3_hour border-l"></td>
+				<td name="3_hour" class="3_hour border-l"></td>
+				<td name="3_hour" class="3_hour border-l"></td>
+				<td name="3_hour" class="3_hour border-l"></td>
+				<td name="3_hour" class="3_hour border-l"></td>
+				<td name="3_hour" class="3_hour border-lr"></td>
+
+				<td name="4_hour" class="4_hour border-l"></td>
+				<td name="4_hour" class="4_hour border-l"></td>
+				<td name="4_hour" class="4_hour border-l"></td>
+				<td name="4_hour" class="4_hour border-l"></td>
+				<td name="4_hour" class="4_hour border-l"></td>
+				<td name="4_hour" class="4_hour border-lr"></td>
+
+				<td name="5_hour" class="5_hour border-l"></td>
+				<td name="5_hour" class="5_hour border-l"></td>
+				<td name="5_hour" class="5_hour border-l"></td>
+				<td name="5_hour" class="5_hour border-l"></td>
+				<td name="5_hour" class="5_hour border-l"></td>
+				<td name="5_hour" class="5_hour border-lr"></td>
+
+				<td name="6_hour" class="6_hour border-l"></td>
+				<td name="6_hour" class="6_hour border-l"></td>
+				<td name="6_hour" class="6_hour border-l"></td>
+				<td name="6_hour" class="6_hour border-l"></td>
+				<td name="6_hour" class="6_hour border-l"></td>
+				<td name="6_hour" class="6_hour border-lr"></td>
+
+				<td name="7_hour" class="7_hour border-l"></td>
+				<td name="7_hour" class="7_hour border-l"></td>
+				<td name="7_hour" class="7_hour border-l"></td>
+				<td name="7_hour" class="7_hour border-l"></td>
+				<td name="7_hour" class="7_hour border-l"></td>
+				<td name="7_hour" class="7_hour border-lr"></td>
+
+				<td name="8_hour" class="8_hour border-l"></td>
+				<td name="8_hour" class="8_hour border-l"></td>
+				<td name="8_hour" class="8_hour border-l"></td>
+				<td name="8_hour" class="8_hour border-l"></td>
+				<td name="8_hour" class="8_hour border-l"></td>
+				<td name="8_hour" class="8_hour border-lr"></td>
+
+				<td name="9_hour" class="9_hour border-l"></td>
+				<td name="9_hour" class="9_hour border-l"></td>
+				<td name="9_hour" class="9_hour border-l"></td>
+				<td name="9_hour" class="9_hour border-l"></td>
+				<td name="9_hour" class="9_hour border-l"></td>
+				<td name="9_hour" class="9_hour border-lr"></td>
+
+				<td class="border-lr"></td>
+				<td class="border-l"></td>
+				<td class="border-l"></td>
+				<td id="editF" class="border-l"></td>
+				<td id="deleteF"></td>
+		</tr>
+	</tfoot>
+	<tbody id="personnel-list" class="css-serial">	
+	</tbody>
+</table>
+</div>
+</div><!-- canvas end-->
+
+</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src='js/jquery-ui.min.js'></script>
+		<script src="js/app.js"></script>
+
+		<script src="js/sun.js"></script>
+
+		<!-- <script src="js/validateDate.js"></script> -->
+		
+		<script src="js/popper.js"></script>
+		<script src="js/suncalc.js"></script>
+		<script src="js/html2canvas.js"></script>
+		<script src="js/download.js"></script>
+		<script src="js/iconselect.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/bootstrap/bootstrap.js"></script>
+		<!-- <script src="js/gridviewscroll.js"></script> -->
+		<!-- <script src="js/cookie.js"></script> -->
+
+	</body>
+</html>

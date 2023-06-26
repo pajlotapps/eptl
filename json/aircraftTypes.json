@@ -1,0 +1,74 @@
+[
+  {
+    "id": "0",
+    "type": "wybierz"
+  },
+  {
+    "id": "1",
+    "type": "W-3",
+    "additionalCrew": 10,
+    "reg": [
+        "#",
+        "0601",
+        "0615",
+        "0609",
+        "0811",
+        "0819",
+        "0820",
+        "0901"
+    ]
+  },
+  {
+    "id": "2",
+    "type": "Mi-2",
+    "additionalCrew": 6,
+    "reg": [
+      "#",
+        "3829",
+        "7337",
+        "7338",
+        "6946",
+        "5249"
+    ]
+  },
+  {
+    "id": "3",
+    "type": "Mi-24",
+    "additionalCrew": 11,
+    "reg": [
+      "#",
+        "746",
+        "729"
+    ]
+  },
+  {
+    "id": "4",
+    "type": "Mi-8",
+    "additionalCrew": 7,
+    "reg": [
+      "#",
+      "xxx1",
+      "xxx2"
+    ]
+  },
+  {
+    "id": "5",
+    "type": "Mi-17",
+    "additionalCrew": 7,
+    "reg": [
+      "#",
+      "yyy1",
+      "yyy2"
+    ]
+  },
+  {
+    "id": "6",
+    "type": "SH-2G",
+    "additionalCrew": 7,
+    "reg": [
+      "#",
+      "zzz1",
+      "zzz2"
+    ]
+  }
+]

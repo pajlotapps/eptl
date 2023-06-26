@@ -1,0 +1,54 @@
+<!-- Dodaj personel modal-->
+<div id="addPersonModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered text-center" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Dodaj członka załogi</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="add-person-form">
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Nazwisko</div>
+								<div class="col-md-8">
+									<input type="text" id="pf-surname" class="form-control">
+								</div>
+						</div>
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Funkcja</div>
+								<div class="col-md-8">
+										<select id="pf-role" class="custom-select">
+												<option selected>wybierz</option>
+												<option value="pilot">Pilot</option>
+												<option value="engineer">Technik pokładowy</option>
+												<option value="gunner">Strzelec pokładowy</option>
+												<option value="medic">Ratownik medyczny</option>
+												<option value="passenger">Pasażer</option>
+												<option value="other">Inny</option>
+										</select>
+									</div>	
+						</div>
+						<div id="callsignRow" class="form-row hidden_element mt-2">
+								<div class="col-md-4 v-middle">Kryptonim</div>
+								<div class="col-md-8"><input type="text" id="pf-callsign" class="form-control"></div>
+						</div>
+						<div class="form-row mt-2">
+								<div class="col-md-4 v-middle">Typ SP</div>
+								<div class="col-md-8"><select id="pf-acType" class="custom-select"></select></div>
+						</div>
+						<div id="wxminimaRow" class="form-row hidden_element mt-2">
+								<div class="col-md-4 v-middle">Warunki minimalne</div>
+								<div class="col-md-8"><input type="text" id="pf-wm" class="form-control"></div>
+						</div>		
+						<div id="pf-alert-container" class="text-center mt-2 alert-container"></div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+					<input type="submit" id="addPersonBtn" class="btn btn-primary" value="Dodaj osobę">
+				</div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,121 @@
+[
+  {
+    "id": "1",
+    "name": "Inowrocław-Latkowo",
+    "ICAO": "EPIR",
+    "latitude": 52.825278,
+    "longitude": 18.323611
+  },
+  {
+    "id": "2",
+    "name": "Mirosławiec",
+    "ICAO": "EPMI",
+    "latitude": 53.3950278,
+    "longitude": 16.0827500
+  },
+  {
+    "id": "3",
+    "name": "Nadarzyce",
+    "ICAO": "EPNA",
+    "latitude": 53.4549722,
+    "longitude": 16.4899444
+  },
+  {
+    "id": "4",
+    "name": "Mińsk Mazowiecki",
+    "ICAO": "EPMM",
+    "latitude": 52.195556,
+    "longitude": 21.656944
+  },
+  {
+    "id": "5",
+    "name": "Gdynia-Oksywie",
+    "ICAO": "EPOK",
+    "latitude": 54.578889,
+    "longitude": 18.519167
+  },
+  {
+    "id": "6",
+    "name": "Siemirowice - Cewice",
+    "ICAO": "EPCE",
+    "latitude": 54.4162500,
+    "longitude": 17.7633056
+  },
+  {
+    "id": "7",
+    "name": "Darłowo",
+    "ICAO": "EPDA",
+    "latitude": 54.4047778,
+    "longitude": 16.3530556
+  },
+  {
+    "id": "8",
+    "name": "Dęblin",
+    "ICAO": "EPDE",
+    "latitude": 51.5511389,
+    "longitude": 21.8920278
+  },
+  {
+    "id": "9",
+    "name": "Poznań - Krzesiny",
+    "ICAO": "EPKS",
+    "latitude": 52.3319167,
+    "longitude": 16.9665833
+  },
+  {
+    "id": "10",
+    "name": "Łask",
+    "ICAO": "EPLK",
+    "latitude": 51.5516944,
+    "longitude": 19.1790278
+  },
+  {
+    "id": "11",
+    "name": "Łęczyca - Leźnica Wielka",
+    "ICAO": "EPLY",
+    "latitude": 52.0050000,
+    "longitude": 19.1439167
+  },
+  {
+    "id": "12",
+    "name": "Malbork",
+    "ICAO": "EPMB",
+    "latitude": 54.0265556,
+    "longitude": 19.1357222
+  },
+  {
+    "id": "13",
+    "name": "Pruszcz Gdański",
+    "ICAO": "EPPR",
+    "latitude": 54.2477222,
+    "longitude": 18.6745000
+  },
+  {
+    "id": "14",
+    "name": "Powidz",
+    "ICAO": "EPPW",
+    "latitude": 52.3790278,
+    "longitude": 17.8521389
+  },
+  {
+    "id": "15",
+    "name": "Radom - Sadków",
+    "ICAO": "EPRA",
+    "latitude": 51.3888333,
+    "longitude": 21.2116111
+  },
+  {
+    "id": "16",
+    "name": "Świdwin",
+    "ICAO": "EPSN",
+    "latitude": 53.7906111,
+    "longitude": 15.8262500
+  },
+  {
+    "id": "17",
+    "name": "Tomaszów Maz. - Nowy Glinnik",
+    "ICAO": "EPTM",
+    "latitude": 51.5845000,
+    "longitude": 20.0971944
+  } 
+]

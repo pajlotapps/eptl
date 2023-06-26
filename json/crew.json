@@ -1,0 +1,16 @@
+[
+  {
+    "rank": "por.",
+    "name": "Adam",
+    "surname": "Olechno",
+    "callsign": "G21",
+    "wxD": "150/1.5",
+    "wxN": "450/5",
+    "aircraft":[
+      {
+        "1": "Mi-2",
+        "2": "W-3"
+      }
+    ]
+  }
+]
