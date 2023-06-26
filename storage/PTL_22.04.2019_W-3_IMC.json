@@ -1,0 +1,78 @@
+{
+	"ptlInfo": {
+		"unit": "W-3",
+		"variant": "IMC",
+		"date": "22.04.2019",
+		"offset": 2,
+		"ss": "19:55",
+		"start": "14:00",
+		"shiftLength": "1",
+		"remarks": ""
+	},
+	"personnel": [
+		{
+			"aircraftType": "W-3",
+			"surname": "Olechno",
+			"role": "pilot",
+			"callsign": "G21",
+			"WM": "100/1"
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Stokfisz",
+			"role": "pilot",
+			"callsign": "F06",
+			"WM": "100/1"
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Karłasz",
+			"role": "engineer",
+			"callsign": "",
+			"WM": ""
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Puzyniak",
+			"role": "medic",
+			"callsign": "",
+			"WM": ""
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Meler",
+			"role": "engineer",
+			"callsign": "",
+			"WM": ""
+		},
+		{
+			"aircraftType": "Mi-2",
+			"surname": "Szymanowski",
+			"role": "gunner",
+			"callsign": "",
+			"WM": ""
+		},
+		{
+			"aircraftType": "Mi-24",
+			"surname": "Mika",
+			"role": "passenger",
+			"callsign": "",
+			"WM": ""
+		},
+		{
+			"aircraftType": "SH-2G",
+			"surname": "Andrzejczak",
+			"role": "other",
+			"callsign": "",
+			"WM": ""
+		}
+	],
+	"aircrafts": [
+		{
+			"type": "W-3",
+			"reg": "0601",
+			"color": "blue",
+			"rmk": ""
+		}
+	]
+}

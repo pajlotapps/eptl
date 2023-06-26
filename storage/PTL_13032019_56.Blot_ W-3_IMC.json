@@ -1,0 +1,58 @@
+{
+	"ptlInfo": {
+	  "unit": "2es (W-3)",
+	  "variant" : "IMC",
+	  "date": "13.03.2019",
+	  "offset" : 1,
+	  "ss": "17:45",
+	  "start": "15:00",
+	  "shiftLength": 5,
+	  "remarks": "Wariant w przypadku niskiej podstawy chmur"
+  }
+	,
+	"personnel": [
+	  {
+		  "id": "1",
+		  "aircraftType": "W-3",
+		  "surname": "Olechno",
+		  "callsign": "G21",
+		  "WM": "150/1.5"
+	  },
+	  {
+		  "id": "2",
+		  "aircraftType": "W-3",
+		  "surname": "Zaniewski",
+		  "callsign": "G22",
+		  "WM": "150/1.5"
+	  }
+	  ], 
+	  "aircrafts": [
+		{
+		  "type":"W-3",
+		  "reg":"0615",
+		  "color":"orange",
+		  "rmk":""
+		  
+		},
+		{
+		  "type":"W-3",
+		  "reg":"0609",
+		  "color":"yellow",
+		  "rmk":"5h ograniczenie"
+		}
+		],
+		"flights": [
+		  {
+		  "commander" : "Kowalski",
+		  "coPilot" : "Nowak",
+		  "flyingEngineer" : "Paprota",
+		  "gunner" : "Franek",
+		  "medic" : "Kolano",
+		  "task" : "398",
+		  "quantity" : 1,
+		  "startTime" : "14:15",
+		  "endTime" : "15:05",
+		  "breakAfter" : 5
+		}
+		  ]
+  }

@@ -1,0 +1,63 @@
+{
+	"ptlInfo": {
+		"unit": "2es (W-3)",
+		"variant": "IMC",
+		"date": "04.05.2019",
+		"offset": 2,
+		"ss": "20:16",
+		"start": "12:00",
+		"shiftLength": "1",
+		"remarks": ""
+	},
+	"personnel": [
+		{
+			"aircraftType": "W-3",
+			"surname": "Olechno",
+			"role": "pilot",
+			"callsign": "G21",
+			"WM": "150/1.5"
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Zaniewski",
+			"role": "pilot",
+			"callsign": "G22",
+			"WM": "150/1.5"
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Karłasz",
+			"role": "engineer",
+			"callsign": "",
+			"WM": ""
+		},
+		{
+			"aircraftType": "W-3",
+			"surname": "Puzyniak",
+			"role": "medic",
+			"callsign": "",
+			"WM": ""
+		}
+	],
+	"aircrafts": [
+		{
+			"type": "W-3",
+			"reg": "0601",
+			"color": "orange",
+			"rmk": ""
+		},
+		{
+			"type": "W-3",
+			"reg": "0811",
+			"color": "green",
+			"rmk": ""
+		},
+		{
+			"type": "Mi-2",
+			"reg": "3829",
+			"color": "teal",
+			"rmk": ""
+		}
+	],
+	"flights": []
+}
